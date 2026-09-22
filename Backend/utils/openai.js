@@ -20,6 +20,13 @@ const getOpenAIResponse = async(message) => {
         const response = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", options);
         const data = await response.json();
         // console.log(data.choices[0].message.content); //reply
+        console.log("Gemini response:", data);
+
+        if (!response.ok) {
+            throw new Error(
+                data?.error?.message || "Gemini API request failed"
+            );
+        }
         return data.choices[0].message.content;
     } catch(err) {
         console.log(err);

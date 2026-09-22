@@ -42,7 +42,7 @@ router.get("/thread/:threadId", async(req, res) => {
         if(!thread){
             return res.status(404).json({error: "Thread not found"});
         }
-        // res.json(thread.messages);
+        res.json(thread.messages);
     }catch(err){
         console.log(err);
         res.status(500).json({error: "Failed to fetch chat"});
@@ -90,6 +90,7 @@ router.post("/chat", async(req, res) => {
         }
 
         const assistantReply = await getOpenAIResponse(message);
+        // const assistantReply = await getOllamaResponse(message);
 
         thread.messages.push({role:"assistant", content: assistantReply});
         
