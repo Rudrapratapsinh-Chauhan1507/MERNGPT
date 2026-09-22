@@ -1,41 +1,59 @@
 # MERNGPT
 
-A full-stack AI chat application built with the MERN stack, inspired by modern conversational AI interfaces.
+A full-stack AI chat application built with the **MERN stack**, designed to explore modern full-stack development, REST APIs, MongoDB persistence, React state management, and AI API integration.
 
-MERNGPT is a learning-focused project developed to explore full-stack application development, REST APIs, MongoDB persistence, React state management, and AI API integration. The project is designed as an original implementation rather than a direct ChatGPT clone.
+> MERNGPT is an original learning and experimentation project inspired by modern conversational AI interfaces. It is not an official ChatGPT clone.
+
+## 🌐 Live Demo
+
+**Frontend:** https://merngpt-puce.vercel.app
+
+**Backend API:** https://merngpt-backend.onrender.com
+
+The application is deployed using:
+
+- **Vercel** — React/Vite frontend
+- **Render** — Node.js/Express backend
+- **MongoDB Atlas** — database
+- **Google Gemini API** — AI response generation
+
+> The Render free service may take some time to wake up after a period of inactivity.
 
 ---
 
 ## 🚀 Features
 
-### 💬 Chat
+### 💬 AI Chat
 
 - Start a new conversation with a unique thread ID
-- Send prompts through the React frontend
+- Send prompts from the React frontend
 - Receive AI-generated responses through the backend
-- Display conversations in a ChatGPT-inspired interface
+- Display conversations in a conversational interface
+- Show a loading indicator while waiting for an AI response
 
 ### 🗂️ Conversation Management
 
-- Automatically save conversations in MongoDB
+- Automatically persist conversations in MongoDB
 - View previously created conversations
-- Open and read existing chat threads
+- Open existing conversation threads
 - Delete saved conversations
 - Highlight the currently selected conversation
+- Create a fresh conversation with the **New Chat** action
 
 ### 📝 AI Response Rendering
 
-- Markdown rendering for AI responses
+- Render AI responses using Markdown
 - Syntax highlighting for code blocks
-- Support for structured AI-generated content
-- Loading indicator while waiting for responses
+- Support structured AI-generated content
+- Display user and assistant messages separately
 
 ### 🖥️ User Interface
 
 - Sidebar-based conversation history
+- Chat workspace
 - New Chat functionality
-- Responsive chat workspace
-- Profile section for future account/settings functionality
+- Profile/settings UI foundation
+- Responsive layout for the main application
 
 ---
 
@@ -43,47 +61,51 @@ MERNGPT is a learning-focused project developed to explore full-stack applicatio
 
 ### Frontend
 
-- **React**
-- **Vite**
-- **React Context API**
-- **react-markdown**
-- **rehype-highlight**
-- **highlight.js**
-- **react-spinners**
-- **UUID**
+| Technology | Purpose |
+|---|---|
+| React | UI development |
+| Vite | Frontend build tool and development server |
+| React Context API | Shared application state |
+| React Markdown | Markdown rendering |
+| rehype-highlight | Code-block highlighting integration |
+| highlight.js | Syntax highlighting |
+| react-spinners | Loading indicators |
+| UUID | Unique conversation/thread IDs |
 
 ### Backend
 
-- **Node.js**
-- **Express.js**
-- **MongoDB**
-- **Mongoose**
-- **dotenv**
-- **CORS**
+| Technology | Purpose |
+|---|---|
+| Node.js | JavaScript runtime |
+| Express.js | REST API server |
+| MongoDB | Conversation persistence |
+| Mongoose | MongoDB object modeling |
+| dotenv | Environment variable management |
+| CORS | Cross-origin request configuration |
 
 ### AI
 
 - **Google Gemini API**
-- Gemini OpenAI-compatible Chat Completions endpoint
+- Gemini's OpenAI-compatible Chat Completions endpoint
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
 ```text
-                    MERNGPT
-                       │
-             ┌─────────┴─────────┐
-             │                   │
-          Frontend            Backend
-             │                   │
-           React              Express
-             │                   │
-             │            ┌──────┴──────┐
-             │            │             │
-             │        MongoDB       Gemini API
-             │            │             │
-             └────────────┴─────────────┘
+                         MERNGPT
+                            │
+             ┌──────────────┴──────────────┐
+             │                             │
+       Vercel Frontend                Render Backend
+             │                             │
+          React                         Express
+             │                             │
+             │                       ┌─────┴─────┐
+             │                       │           │
+             │                  MongoDB Atlas  Gemini API
+             │                       │           │
+             └───────────────────────┴───────────┘
 ```
 
 ### Request Flow
@@ -92,25 +114,27 @@ MERNGPT is a learning-focused project developed to explore full-stack applicatio
 User
   │
   ▼
-React Frontend
+React / Vite Frontend
   │
   │ POST /api/chat
   ▼
 Express Backend
   │
-  ├── Find/Create Thread
+  ├── Validate request
   │
-  ├── Store User Message
+  ├── Find or create thread
   │
-  ├── Send Prompt to Gemini
+  ├── Store user message
   │
-  ├── Store AI Response
+  ├── Send prompt to Gemini
+  │
+  ├── Store assistant response
   │
   ▼
-MongoDB
+MongoDB Atlas
   │
   ▼
-Response
+Express Response
   │
   ▼
 React Chat Interface
@@ -133,6 +157,7 @@ MERNGPT/
 │   ├── utils/
 │   │   └── openai.js
 │   │
+│   ├── .env
 │   ├── package.json
 │   └── server.js
 │
@@ -140,12 +165,15 @@ MERNGPT/
 │   ├── public/
 │   │
 │   ├── src/
+│   │   ├── assets/
 │   │   ├── App.jsx
 │   │   ├── Chat.jsx
 │   │   ├── ChatWindow.jsx
 │   │   ├── MyContent.jsx
 │   │   └── Sidebar.jsx
 │   │
+│   ├── .env
+│   ├── .env.example
 │   ├── package.json
 │   └── vite.config.js
 │
@@ -153,25 +181,27 @@ MERNGPT/
 └── README.md
 ```
 
+> `.env` files are local/deployment configuration files and should not be committed when they contain secrets.
+
 ---
 
 # ⚙️ Getting Started
 
 ## Prerequisites
 
-Make sure the following are installed:
+Install or create the following before running MERNGPT locally:
 
-- Node.js
+- [Node.js](https://nodejs.org/)
 - npm
-- MongoDB or a MongoDB Atlas account
-- A Google Gemini API key
+- MongoDB Atlas account or a local MongoDB instance
+- Google Gemini API key
 
 ---
 
 ## 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Rudrapratapsinh-Chauhan1507/MERNGPT.git
 cd MERNGPT
 ```
 
@@ -186,23 +216,33 @@ npm install
 
 ---
 
-## 3. Configure Environment Variables
+## 3. Configure Backend Environment Variables
 
-Create a `.env` file inside the `Backend` directory:
+Create:
+
+```text
+Backend/.env
+```
+
+Add:
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
 GEMINI_API_KEY=your_gemini_api_key
 GEMINI_MODEL=your_gemini_model_name
+FRONTEND_URL=http://localhost:5173
 ```
 
-Example:
+### Example
 
 ```env
-GEMINI_MODEL=your-model-name
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/<database>
+GEMINI_API_KEY=your_api_key
+GEMINI_MODEL=your_model_name
+FRONTEND_URL=http://localhost:5173
 ```
 
-> Do not commit your `.env` file or expose your API key publicly.
+> Never commit `Backend/.env` or expose API keys and database credentials publicly.
 
 ---
 
@@ -211,26 +251,32 @@ GEMINI_MODEL=your-model-name
 From the `Backend` directory:
 
 ```bash
-npx nodemon server.js
-```
-
-Or:
-
-```bash
 node server.js
 ```
 
-The backend runs on:
+For development with Nodemon:
+
+```bash
+npx nodemon server.js
+```
+
+The local backend runs on:
 
 ```text
 http://localhost:8080
+```
+
+API base URL:
+
+```text
+http://localhost:8080/api
 ```
 
 ---
 
 ## 5. Install Frontend Dependencies
 
-Open a new terminal:
+Open a second terminal:
 
 ```bash
 cd Frontend
@@ -239,13 +285,39 @@ npm install
 
 ---
 
-## 6. Start the Frontend
+## 6. Configure Frontend Environment Variables
+
+Create:
+
+```text
+Frontend/.env
+```
+
+Add:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+For the deployed application, the value is:
+
+```env
+VITE_API_URL=https://merngpt-backend.onrender.com
+```
+
+> Vite exposes variables prefixed with `VITE_` to frontend code. Do not put private API keys or database credentials in frontend environment variables.
+
+---
+
+## 7. Start the Frontend
+
+From the `Frontend` directory:
 
 ```bash
 npm run dev
 ```
 
-Vite will usually start the frontend at:
+Vite will normally provide a local URL similar to:
 
 ```text
 http://localhost:5173
@@ -257,39 +329,35 @@ Open the displayed URL in your browser.
 
 # 🔌 API Endpoints
 
-Base URL:
+The backend API is mounted under:
 
 ```text
-http://localhost:8080/api
+/api
 ```
 
 ### Get All Threads
 
 ```http
-GET /thread
+GET /api/thread
 ```
 
-Returns saved conversations ordered by their latest update.
-
----
+Returns saved conversation threads, ordered by their latest update.
 
 ### Get a Specific Thread
 
 ```http
-GET /thread/:threadId
+GET /api/thread/:threadId
 ```
 
-Returns the messages belonging to a specific conversation.
-
----
+Returns the messages belonging to the requested conversation.
 
 ### Send a Chat Message
 
 ```http
-POST /chat
+POST /api/chat
 ```
 
-Request:
+Request body:
 
 ```json
 {
@@ -306,12 +374,10 @@ Response:
 }
 ```
 
----
-
 ### Delete a Thread
 
 ```http
-DELETE /thread/:threadId
+DELETE /api/thread/:threadId
 ```
 
 Deletes the specified conversation from MongoDB.
@@ -320,19 +386,110 @@ Deletes the specified conversation from MongoDB.
 
 # 🔐 Environment Variables
 
-| Variable | Description |
-|---|---|
-| `MONGODB_URI` | MongoDB connection string |
-| `GEMINI_API_KEY` | API key used for Gemini |
-| `GEMINI_MODEL` | Gemini model used for generating responses |
+## Backend
 
-> Store environment variables in `Backend/.env`. Never commit API keys or database credentials to GitHub.
+| Variable | Purpose | Example |
+|---|---|---|
+| `MONGODB_URI` | MongoDB connection string | `mongodb+srv://...` |
+| `GEMINI_API_KEY` | Gemini API authentication | `your_api_key` |
+| `GEMINI_MODEL` | Gemini model used for responses | `your_model` |
+| `FRONTEND_URL` | Allowed frontend origin for CORS | `http://localhost:5173` |
+
+## Frontend
+
+| Variable | Purpose | Example |
+|---|---|---|
+| `VITE_API_URL` | Backend API base URL | `http://localhost:8080` |
+
+### Production Configuration
+
+```text
+Frontend
+VITE_API_URL
+    ↓
+https://merngpt-backend.onrender.com
+
+Backend
+FRONTEND_URL
+    ↓
+https://merngpt-puce.vercel.app
+```
+
+> Keep secrets such as `GEMINI_API_KEY` and `MONGODB_URI` only on the backend/deployment environment.
+
+---
+
+# 🚀 Deployment
+
+## Frontend — Vercel
+
+The React/Vite frontend is deployed on Vercel.
+
+### Configuration
+
+```text
+Root Directory: Frontend
+Framework: Vite
+Environment Variable:
+VITE_API_URL=https://merngpt-backend.onrender.com
+```
+
+Live frontend:
+
+```text
+https://merngpt-puce.vercel.app
+```
+
+---
+
+## Backend — Render
+
+The Node.js/Express backend is deployed on Render.
+
+### Configuration
+
+```text
+Root Directory: Backend
+Build Command: npm install
+Start Command: node server.js
+```
+
+Required environment variables:
+
+```env
+MONGODB_URI=...
+GEMINI_API_KEY=...
+GEMINI_MODEL=...
+FRONTEND_URL=https://merngpt-puce.vercel.app
+```
+
+Live backend:
+
+```text
+https://merngpt-backend.onrender.com
+```
+
+The server binds to Render's assigned port and listens on `0.0.0.0`.
+
+---
+
+## Database — MongoDB Atlas
+
+MongoDB Atlas stores the application's conversation threads and messages.
+
+The backend connects using:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+```
+
+For a deployed backend, make sure the database network configuration allows the Render service to connect.
 
 ---
 
 # 🧠 What I Learned
 
-This project was built to strengthen practical understanding of:
+This project helped build practical understanding of:
 
 - React component architecture
 - React Context API
@@ -345,34 +502,90 @@ This project was built to strengthen practical understanding of:
 - AI API integration
 - Markdown rendering
 - Syntax highlighting
-- Git and GitHub workflow
 - Environment variable management
-- Full-stack application integration
+- CORS configuration
+- Frontend/backend integration
+- Git and GitHub workflow
+- Vercel deployment
+- Render deployment
+- MongoDB Atlas integration
+- Debugging production deployment issues
+
+---
+
+# 🐛 Development & Debugging Notes
+
+Some practical issues addressed during development include:
+
+### CORS Configuration
+
+The production backend must allow requests from the deployed Vercel frontend.
+
+```env
+FRONTEND_URL=https://merngpt-puce.vercel.app
+```
+
+### Frontend API URL
+
+The frontend should not use the local backend URL after deployment.
+
+Local:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+Production:
+
+```env
+VITE_API_URL=https://merngpt-backend.onrender.com
+```
+
+### Static Assets
+
+Vite assets inside `src/assets` should be imported into React components instead of using a development-style path such as:
+
+```jsx
+<img src="src/assets/blacklogo.png" />
+```
+
+Use an import:
+
+```jsx
+import blackLogo from "./assets/blacklogo.png";
+
+<img src={blackLogo} alt="MERNGPT Logo" />
+```
+
+This ensures Vite correctly processes the asset during production builds.
 
 ---
 
 # 🚧 Future Improvements
 
-The project can be extended with:
-
-### AI & Backend
+## AI & Backend
 
 - Local LLM support using Ollama
 - AI provider abstraction
 - Streaming AI responses
-- Conversation context/memory
-- Better prompt management
+- Conversation context and memory
+- Improved prompt management
+- Better error handling
+- Request validation
+- Rate limiting
 
-### RAG
+## RAG
 
 - PDF/document upload
 - Document text extraction
+- Chunking and preprocessing
 - Embedding generation
-- Vector database integration
-- Retrieval-Augmented Generation (RAG)
+- FAISS/vector database integration
+- Retrieval-Augmented Generation
 - Source citations
+- Document-aware conversations
 
-### Application
+## Application
 
 - User authentication
 - User-specific conversations
@@ -380,36 +593,51 @@ The project can be extended with:
 - Search conversations
 - Chat export
 - File attachments
-- Better error handling
-- Request validation
+- Profile/settings functionality
+- Conversation sharing
 
-### Engineering
+## Engineering
 
 - Automated testing
 - API documentation
 - Docker support
 - CI/CD pipeline
-- Logging and monitoring
-- Production deployment
+- Structured logging
+- Monitoring
+- Improved production error reporting
 
 ---
 
 # 🔒 Security Notes
 
-- API keys are stored using environment variables.
-- `.env` files are excluded from Git using `.gitignore`.
-- Never expose Gemini API keys in frontend code.
-- Never commit database credentials to the repository.
+- Store secrets in environment variables.
+- Keep `.env` files out of Git.
+- Never expose `GEMINI_API_KEY` in frontend code.
+- Never commit MongoDB credentials.
+- Keep API keys on the backend.
+- Configure CORS for the intended frontend origin.
+- Validate and sanitize user input as the application grows.
+- Add authentication and authorization before supporting private user data.
 
 ---
 
 # 📌 Project Status
 
-**Current Status:** Active development
+**Status:** Deployed and under active development
 
-The current version implements the core MERN chat application with MongoDB-based conversation persistence and Gemini-powered AI responses.
+The current version provides a functional full-stack AI chat application with:
 
-Future versions will explore locally hosted LLMs, RAG, document-based knowledge retrieval, and additional AI capabilities.
+- React/Vite frontend
+- Express backend
+- MongoDB Atlas persistence
+- Gemini-powered responses
+- Conversation history
+- Thread deletion
+- Markdown and code rendering
+- Vercel frontend deployment
+- Render backend deployment
+
+Future development will focus on local LLM integration, RAG, document-based knowledge retrieval, authentication, and production-grade engineering.
 
 ---
 
@@ -417,6 +645,12 @@ Future versions will explore locally hosted LLMs, RAG, document-based knowledge 
 
 **Rudrapratapsinh Chauhan**
 
-MERN Stack & AI/ML Developer
+**MERN Stack & AI/ML Developer**
 
-Built as a learning and experimentation project for full-stack development and AI application engineering.
+Built as a learning and experimentation project focused on full-stack application development and AI application engineering.
+
+---
+
+## ⭐ Acknowledgement
+
+This project is intended for learning, experimentation, and portfolio development. It demonstrates how a React frontend, Node.js/Express backend, MongoDB database, and AI API can be combined into a complete AI-powered web application.
