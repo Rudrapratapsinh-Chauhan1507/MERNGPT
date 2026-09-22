@@ -6,18 +6,18 @@ A full-stack AI chat application built with the **MERN stack**, designed to expl
 
 ## 🌐 Live Demo
 
-**Frontend:** https://merngpt-puce.vercel.app
+🚀 **[Try MERNGPT](https://merngpt-puce.vercel.app)**
 
-**Backend API:** https://merngpt-backend.onrender.com
+A full-stack AI chat application with a React/Vite frontend, Express backend, MongoDB Atlas persistence, and Gemini-powered responses.
 
-The application is deployed using:
+### Deployment
 
-- **Vercel** — React/Vite frontend
-- **Render** — Node.js/Express backend
-- **MongoDB Atlas** — database
-- **Google Gemini API** — AI response generation
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
+- **AI:** Google Gemini API
 
-> The Render free service may take some time to wake up after a period of inactivity.
+> The backend is an API service and is not intended to be opened directly as a webpage.
 
 ---
 
