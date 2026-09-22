@@ -4,6 +4,8 @@ import { MyContext } from "./MyContent.jsx";
 import { useContext, useState, useEffect } from "react";
 import {ScaleLoader} from "react-spinners";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ChatWindow(){
     const {prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats, setNewChat} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
@@ -25,7 +27,7 @@ function ChatWindow(){
         };
 
         try{
-            const response = await fetch("http://localhost:8080/api/chat", options);
+            const response = await fetch(`${API_URL}/api/chat`, options);
             const res = await response.json();
             console.log(res);
             setReply(res.reply);
@@ -69,9 +71,9 @@ function ChatWindow(){
             {
                 isOpen && 
                 <div className="dropDown">
-                    <div className="dropDownItem"><i class="fa-solid fa-gear"></i>Settings</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-cloud-arrow-up"></i>Upgrade Plan</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log Out</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-gear"></i>Settings</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i>Upgrade Plan</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-arrow-right-from-bracket"></i>Log Out</div>
                 </div>
             }
 
